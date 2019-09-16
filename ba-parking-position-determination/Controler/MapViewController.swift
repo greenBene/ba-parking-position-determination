@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import MapKit
 
-class ViewController: UIViewController {
-
+class MapViewController: UIViewController, MKMapViewDelegate{
+    
+    @IBOutlet weak var mapView: MKMapView!
+    let regionRadius: CLLocationDistance = 1000
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        mapView.showsUserLocation = true
+        mapView.userTrackingMode = .follow
+        
     }
 
-
 }
-
