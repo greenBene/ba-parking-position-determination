@@ -12,6 +12,10 @@ import CoreLocation
 
 class ParkingPositionDetermination {
     
+    enum ClassificationError: Error {
+        case runtimeError(String)
+    }
+    
     enum TransportationMode {
         case bike
         case car
@@ -19,31 +23,63 @@ class ParkingPositionDetermination {
         case walk
     }
     
+    func getTransportationModeName(_ i: Int) -> String {
+        switch i {
+        case 0:
+            return "bike"
+        case 1:
+            return "car"
+        case 2:
+            return "train"
+        case 3:
+            return "walk"
+        default:
+            return ""
+        }
+    }
+    
     let realm = try! Realm()
     
-    func determineParkingPosition() {
+    
+    
+    func determineParkingPosition() throws -> ([CLLocation], [trans_modeOutput], CLLocation?){
         
         let trajectory = loadTrajectory()
 
-        let features = featureExtraction(locations: trajectory)
+        var output: [trans_modeOutput] = Array()
         
-        let classifier = trans_mode()
-        
+    
         do {
-            let output = try classifier.predictions(inputs: features)
             
-            for o in output {
-                switch o.target {
-                    case 0: print("Bike")
-                    case 1: print("Car")
-                    case 2: print("Train")
-                    case 3: print("Walk")
-                    default: print("Invalid")
-                }
-            }
+            let features = try featureExtraction(locations: trajectory)
+            
+            let classifier = trans_mode()
+            
+            output = try classifier.predictions(inputs: features)
+
         } catch {
-            print(error)
+            throw error
         }
+        
+        
+        var counter = 0
+        
+        var loc: CLLocation? = nil
+        
+        for i in (0 ..< output.count).reversed() {
+            if( getTransportationModeName(Int(output[i].target)) == "car" ){
+                counter += 1
+            } else {
+                counter = 0
+            }
+            
+            if(counter == 2){
+                loc = trajectory[i + 2]
+            }
+            
+        }
+        
+        return (trajectory, output, loc)
         
     }
     
@@ -62,7 +98,7 @@ class ParkingPositionDetermination {
         return locations
     }
     
-    private func featureExtraction(locations: [CLLocation]) -> [trans_modeInput]{
+    private func featureExtraction(locations: [CLLocation]) throws -> [trans_modeInput] {
         var time: [Double] = Array() // Time difference in seconds
         var dist: [Double] = Array() // Distance in meters
         var bear: [Double] = Array() // Bearing in degree
@@ -104,10 +140,13 @@ class ParkingPositionDetermination {
         // widows
         
         var features: [trans_modeInput] = Array()
-   
+
+        if locations.count < 4 {
+            throw ClassificationError.runtimeError("not enough location data collected")
+        }
 
         
-        for index in 0 ..< locations.count - 4 { // x coordinates ->  x-1 segmnets -> x-4 floating window segments of size three
+        for index in 0 ..< locations.count - 4 {
             
             let v0 = velo[ index ]
             let v1 = velo[ index + 1 ]

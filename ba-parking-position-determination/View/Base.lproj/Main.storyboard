@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Map View Controller-->
+        <!--Loading Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoadingMapViewController" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,11 +57,65 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="hrK-el-9af" id="DkY-fR-hXg"/>
+                        <segue destination="wrc-C1-ack" kind="show" identifier="showCar" animates="NO" id="H92-3A-Sy1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="135.19999999999999" y="128.57142857142858"/>
+        </scene>
+        <!--Parking Position Determined Map View Controler-->
+        <scene sceneID="deG-6d-lex">
+            <objects>
+                <viewController id="wrc-C1-ack" customClass="ParkingPositionDeterminedMapViewControler" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mS2-9f-BHx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fgD-JT-5Mo">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvZ-Nj-kXS">
+                                <rect key="frame" x="0.0" y="712" width="375" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssJ-mK-acL">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="30"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                        <state key="normal" title="BACK"/>
+                                        <connections>
+                                            <action selector="backButton:" destination="wrc-C1-ack" eventType="touchUpInside" id="iE3-w4-0kd"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ssJ-mK-acL" firstAttribute="leading" secondItem="jvZ-Nj-kXS" secondAttribute="leading" id="FuL-yt-G6l"/>
+                                    <constraint firstAttribute="bottom" secondItem="ssJ-mK-acL" secondAttribute="bottom" constant="35" id="Gah-F5-F7v"/>
+                                    <constraint firstAttribute="trailing" secondItem="ssJ-mK-acL" secondAttribute="trailing" id="LwG-7z-26m"/>
+                                    <constraint firstItem="ssJ-mK-acL" firstAttribute="top" secondItem="jvZ-Nj-kXS" secondAttribute="top" constant="35" id="MqE-kp-Tsv"/>
+                                    <constraint firstAttribute="height" constant="100" id="yCm-lp-9wS"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jvZ-Nj-kXS" firstAttribute="trailing" secondItem="JY0-tv-7Jw" secondAttribute="trailing" id="1Dy-KW-WFI"/>
+                            <constraint firstItem="fgD-JT-5Mo" firstAttribute="trailing" secondItem="JY0-tv-7Jw" secondAttribute="trailing" id="3iy-Pq-2gV"/>
+                            <constraint firstItem="fgD-JT-5Mo" firstAttribute="top" secondItem="mS2-9f-BHx" secondAttribute="top" id="B9B-nv-FB3"/>
+                            <constraint firstItem="jvZ-Nj-kXS" firstAttribute="leading" secondItem="JY0-tv-7Jw" secondAttribute="leading" id="Dnr-nH-ega"/>
+                            <constraint firstItem="fgD-JT-5Mo" firstAttribute="leading" secondItem="JY0-tv-7Jw" secondAttribute="leading" id="oRu-RK-WgD"/>
+                            <constraint firstAttribute="bottom" secondItem="fgD-JT-5Mo" secondAttribute="bottom" id="uwF-fH-yEu"/>
+                            <constraint firstAttribute="bottom" secondItem="jvZ-Nj-kXS" secondAttribute="bottom" id="wdJ-vT-PBW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JY0-tv-7Jw"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="fgD-JT-5Mo" id="E8Z-pq-yu9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iSA-Qf-MGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1242.4000000000001" y="126.35467980295567"/>
         </scene>
     </scenes>
 </document>

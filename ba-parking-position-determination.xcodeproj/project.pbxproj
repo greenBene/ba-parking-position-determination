@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		51A162BB07F3F78B33E58CD0 /* Pods_ba_parking_position_determination.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49F75DD80A4068A8C719E8 /* Pods_ba_parking_position_determination.framework */; };
 		CC11632F2330D23A0082DDA4 /* trans_mode.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CC11632E2330D2390082DDA4 /* trans_mode.mlmodel */; };
+		CC116331233108280082DDA4 /* ParkingPositionDeterminedMapViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC116330233108280082DDA4 /* ParkingPositionDeterminedMapViewControler.swift */; };
 		CC516D01232F82CD0007DB48 /* Route.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CC516D00232F82CD0007DB48 /* Route.gpx */; };
 		CC92866F232BEBFB000478AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC92866E232BEBFB000478AF /* AppDelegate.swift */; };
-		CC928671232BEBFB000478AF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC928670232BEBFB000478AF /* MapViewController.swift */; };
+		CC928671232BEBFB000478AF /* LoadingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC928670232BEBFB000478AF /* LoadingMapViewController.swift */; };
 		CC928674232BEBFB000478AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC928672232BEBFB000478AF /* Main.storyboard */; };
 		CC928676232BEBFC000478AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC928675232BEBFC000478AF /* Assets.xcassets */; };
 		CC928679232BEBFC000478AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC928677232BEBFC000478AF /* LaunchScreen.storyboard */; };
@@ -24,10 +25,11 @@
 		382335FAD8DDD78F4271D9B5 /* Pods-ba-parking-position-determination.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ba-parking-position-determination.release.xcconfig"; path = "Target Support Files/Pods-ba-parking-position-determination/Pods-ba-parking-position-determination.release.xcconfig"; sourceTree = "<group>"; };
 		3B49F75DD80A4068A8C719E8 /* Pods_ba_parking_position_determination.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ba_parking_position_determination.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC11632E2330D2390082DDA4 /* trans_mode.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = trans_mode.mlmodel; sourceTree = "<group>"; };
+		CC116330233108280082DDA4 /* ParkingPositionDeterminedMapViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingPositionDeterminedMapViewControler.swift; sourceTree = "<group>"; };
 		CC516D00232F82CD0007DB48 /* Route.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Route.gpx; sourceTree = "<group>"; };
 		CC92866B232BEBFB000478AF /* ba-parking-position-determination.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ba-parking-position-determination.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC92866E232BEBFB000478AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CC928670232BEBFB000478AF /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CC928670232BEBFB000478AF /* LoadingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingMapViewController.swift; sourceTree = "<group>"; };
 		CC928673232BEBFB000478AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CC928675232BEBFC000478AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC928678232BEBFC000478AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -116,7 +118,8 @@
 		CCB74948232F905C0084D884 /* Controler */ = {
 			isa = PBXGroup;
 			children = (
-				CC928670232BEBFB000478AF /* MapViewController.swift */,
+				CC928670232BEBFB000478AF /* LoadingMapViewController.swift */,
+				CC116330233108280082DDA4 /* ParkingPositionDeterminedMapViewControler.swift */,
 			);
 			path = Controler;
 			sourceTree = "<group>";
@@ -263,7 +266,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC928671232BEBFB000478AF /* MapViewController.swift in Sources */,
+				CC928671232BEBFB000478AF /* LoadingMapViewController.swift in Sources */,
+				CC116331233108280082DDA4 /* ParkingPositionDeterminedMapViewControler.swift in Sources */,
 				CCF59A65232FDBD300DA1850 /* ParkingPositionDetermination.swift in Sources */,
 				CCB7494B232F90A80084D884 /* Location.swift in Sources */,
 				CC11632F2330D23A0082DDA4 /* trans_mode.mlmodel in Sources */,
