@@ -26,12 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print( "Realm database saved at: \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         
+        try! realm.write {
+            realm.deleteAll()
+        }
+        
         
         locationManager.requestAlwaysAuthorization()
         locationManager.delegate = self
 
         // start reveicing location
-        locationManager.distanceFilter = 15 // meters
+        locationManager.distanceFilter = 15 // meters // no need for staypoint detection?
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
@@ -72,7 +76,7 @@ extension AppDelegate: CLLocationManagerDelegate {
                 
                 realm.add(location)
                 
-                print("Added new locaiton")
+                print("Added new location")
             }
         } catch {
             print("Error while adding new location to realm \(error)")

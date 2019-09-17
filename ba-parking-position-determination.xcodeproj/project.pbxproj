@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		51A162BB07F3F78B33E58CD0 /* Pods_ba_parking_position_determination.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49F75DD80A4068A8C719E8 /* Pods_ba_parking_position_determination.framework */; };
+		CC11632F2330D23A0082DDA4 /* trans_mode.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CC11632E2330D2390082DDA4 /* trans_mode.mlmodel */; };
 		CC516D01232F82CD0007DB48 /* Route.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CC516D00232F82CD0007DB48 /* Route.gpx */; };
 		CC92866F232BEBFB000478AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC92866E232BEBFB000478AF /* AppDelegate.swift */; };
 		CC928671232BEBFB000478AF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC928670232BEBFB000478AF /* MapViewController.swift */; };
 		CC928674232BEBFB000478AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC928672232BEBFB000478AF /* Main.storyboard */; };
 		CC928676232BEBFC000478AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC928675232BEBFC000478AF /* Assets.xcassets */; };
 		CC928679232BEBFC000478AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC928677232BEBFC000478AF /* LaunchScreen.storyboard */; };
-		CC928681232BEFA7000478AF /* CarAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC928680232BEFA7000478AF /* CarAnnotation.swift */; };
 		CCB7494B232F90A80084D884 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB7494A232F90A80084D884 /* Location.swift */; };
+		CCF59A65232FDBD300DA1850 /* ParkingPositionDetermination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF59A64232FDBD300DA1850 /* ParkingPositionDetermination.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3627261BEA1C398CA0D5D548 /* Pods-ba-parking-position-determination.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ba-parking-position-determination.debug.xcconfig"; path = "Target Support Files/Pods-ba-parking-position-determination/Pods-ba-parking-position-determination.debug.xcconfig"; sourceTree = "<group>"; };
 		382335FAD8DDD78F4271D9B5 /* Pods-ba-parking-position-determination.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ba-parking-position-determination.release.xcconfig"; path = "Target Support Files/Pods-ba-parking-position-determination/Pods-ba-parking-position-determination.release.xcconfig"; sourceTree = "<group>"; };
 		3B49F75DD80A4068A8C719E8 /* Pods_ba_parking_position_determination.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ba_parking_position_determination.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC11632E2330D2390082DDA4 /* trans_mode.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = trans_mode.mlmodel; sourceTree = "<group>"; };
 		CC516D00232F82CD0007DB48 /* Route.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Route.gpx; sourceTree = "<group>"; };
 		CC92866B232BEBFB000478AF /* ba-parking-position-determination.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ba-parking-position-determination.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC92866E232BEBFB000478AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,8 +32,8 @@
 		CC928675232BEBFC000478AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC928678232BEBFC000478AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC92867A232BEBFC000478AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC928680232BEFA7000478AF /* CarAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarAnnotation.swift; sourceTree = "<group>"; };
 		CCB7494A232F90A80084D884 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		CCF59A64232FDBD300DA1850 /* ParkingPositionDetermination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingPositionDetermination.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				CCB74948232F905C0084D884 /* Controler */,
 				CCB74947232F90570084D884 /* View */,
 				CCB74946232F904B0084D884 /* Model */,
+				CCF59A63232FDB7E00DA1850 /* Parking Position Detection */,
 				CCB74949232F90820084D884 /* Supporting Files */,
 				CC92867A232BEBFC000478AF /* Info.plist */,
 			);
@@ -97,7 +100,6 @@
 		CCB74946232F904B0084D884 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CC928680232BEFA7000478AF /* CarAnnotation.swift */,
 				CCB7494A232F90A80084D884 /* Location.swift */,
 			);
 			path = Model;
@@ -122,11 +124,20 @@
 		CCB74949232F90820084D884 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CC11632E2330D2390082DDA4 /* trans_mode.mlmodel */,
 				CC516D00232F82CD0007DB48 /* Route.gpx */,
 				CC928675232BEBFC000478AF /* Assets.xcassets */,
 				CC928677232BEBFC000478AF /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CCF59A63232FDB7E00DA1850 /* Parking Position Detection */ = {
+			isa = PBXGroup;
+			children = (
+				CCF59A64232FDBD300DA1850 /* ParkingPositionDetermination.swift */,
+			);
+			path = "Parking Position Detection";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,9 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC928681232BEFA7000478AF /* CarAnnotation.swift in Sources */,
 				CC928671232BEBFB000478AF /* MapViewController.swift in Sources */,
+				CCF59A65232FDBD300DA1850 /* ParkingPositionDetermination.swift in Sources */,
 				CCB7494B232F90A80084D884 /* Location.swift in Sources */,
+				CC11632F2330D23A0082DDA4 /* trans_mode.mlmodel in Sources */,
 				CC92866F232BEBFB000478AF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

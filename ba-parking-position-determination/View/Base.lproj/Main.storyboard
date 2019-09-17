@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_5" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,17 +15,41 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hrK-el-9af">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </mapView>
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZY-2s-Bm6">
+                                <rect key="frame" x="0.0" y="712" width="375" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R70-h7-PSZ">
+                                        <rect key="frame" x="8" y="30" width="359" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Determine Parking Position"/>
+                                        <connections>
+                                            <action selector="detetimineParkingPositonButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yvk-bY-cA7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="R70-h7-PSZ" secondAttribute="bottom" constant="30" id="1qj-0k-7OO"/>
+                                    <constraint firstItem="R70-h7-PSZ" firstAttribute="leading" secondItem="DZY-2s-Bm6" secondAttribute="leading" constant="8" id="BC8-Oh-xQp"/>
+                                    <constraint firstAttribute="height" constant="100" id="OUK-z9-9FW"/>
+                                    <constraint firstAttribute="trailing" secondItem="R70-h7-PSZ" secondAttribute="trailing" constant="8" id="ZIZ-Zk-zhe"/>
+                                    <constraint firstItem="R70-h7-PSZ" firstAttribute="top" secondItem="DZY-2s-Bm6" secondAttribute="top" constant="30" id="ofS-B3-iz1"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hrK-el-9af" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CIY-Qf-DH2"/>
+                            <constraint firstAttribute="bottom" secondItem="DZY-2s-Bm6" secondAttribute="bottom" id="YDW-6k-W28"/>
+                            <constraint firstItem="DZY-2s-Bm6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fRz-Lo-5H7"/>
                             <constraint firstAttribute="bottom" secondItem="hrK-el-9af" secondAttribute="bottom" id="jPD-5L-iRe"/>
+                            <constraint firstItem="DZY-2s-Bm6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kPf-MV-ogS"/>
                             <constraint firstItem="hrK-el-9af" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ony-aE-BCi"/>
                             <constraint firstItem="hrK-el-9af" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xKc-zF-Pvj"/>
                         </constraints>
@@ -37,7 +61,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="129.31034482758622"/>
+            <point key="canvasLocation" x="135.19999999999999" y="128.57142857142858"/>
         </scene>
     </scenes>
 </document>
