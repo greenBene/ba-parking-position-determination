@@ -74,7 +74,7 @@ class ParkingPositionDetermination {
             }
             
             if(counter == 2){
-                loc = trajectory[i + 2]
+                loc = trajectory[i + 5]
             }
             
         }
