@@ -13,6 +13,9 @@ import RealmSwift
 class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     
     @IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var informationView: UIView!
+    
     let regionRadius: CLLocationDistance = 1000
     let locationManager = CLLocationManager()
     let realm = try! Realm()
@@ -31,7 +34,8 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
         mapView.delegate = self
         mapView.showsCompass = true
         mapView.showsScale = true
-
+        
+        additionalSafeAreaInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: informationView.bounds.height, right: 0.0)
         
     }
     
@@ -41,8 +45,7 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let con = segue.destination as! ParkingPositionDeterminedMapViewControler
-        
-        con.carLocation = carLocation
+        con.carLocation = carLocation!
         con.trajectory = trajectory
         con.labels = labels
     }

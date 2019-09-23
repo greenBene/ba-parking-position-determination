@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     let locationManager = CLLocationManager()
+    static var currentLocation: CLLocation? = nil
     
     let realm = try! Realm()
     
@@ -26,12 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print( "Realm database saved at: \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         
-        try! realm.write {
-            realm.deleteAll()
-        }
+//        try! realm.write {
+//            realm.deleteAll()
+//        }
         
         
         locationManager.requestAlwaysAuthorization()
+        
+        print(locationManager.requestAlwaysAuthorization())
         locationManager.delegate = self
 
         // start reveicing location
@@ -54,6 +57,8 @@ extension AppDelegate: CLLocationManagerDelegate {
         }
         
         // Save location to realm
+        
+        AppDelegate.currentLocation = location
         
         saveLocaiton(location: location)
         

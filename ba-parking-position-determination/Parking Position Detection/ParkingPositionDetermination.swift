@@ -48,39 +48,42 @@ class ParkingPositionDetermination {
 
         var output: [trans_modeOutput] = Array()
         
+        var loc: CLLocation? = nil
+        
     
         do {
-            
-            let features = try featureExtraction(locations: trajectory)
-            
             let classifier = trans_mode()
-            
+            let features = try featureExtraction(locations: trajectory)
+        
             output = try classifier.predictions(inputs: features)
+            
+            loc =  try determineParkingPos(trajectory: trajectory, labels: output)
 
         } catch {
             throw error
         }
+
+        return (trajectory, output, loc)
         
-        
+    }
+    
+    private func determineParkingPos(trajectory traj: [CLLocation], labels: [trans_modeOutput]) throws -> CLLocation? {
         var counter = 0
         
-        var loc: CLLocation? = nil
-        
-        for i in (0 ..< output.count).reversed() {
-            if( getTransportationModeName(Int(output[i].target)) == "car" ){
+        for i in (0 ..< labels.count).reversed() {
+            print(traj[i].timestamp)
+            if( getTransportationModeName(Int(labels[i].target)) == "car" ){
                 counter += 1
             } else {
                 counter = 0
             }
             
-            if(counter == 2){
-                loc = trajectory[i + 5]
+            if(counter == 3){
+                return traj[i + 5]
             }
-            
         }
-        
-        return (trajectory, output, loc)
-        
+    
+        throw ClassificationError.runtimeError("No Parking Position was determined")
     }
     
     private func loadTrajectory() -> [CLLocation] {

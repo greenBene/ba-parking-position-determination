@@ -9,12 +9,17 @@
 import UIKit
 import MapKit
 import RealmSwift
+import Contacts
 
 class ParkingPositionDeterminedMapViewControler: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var informationView: UIView!
+    @IBOutlet weak var parkingLocationInformationLabel: UILabel!
     
-    var carLocation: CLLocation? = nil
+    var carLocation: CLLocation = CLLocation(latitude: 0, longitude: 0)
+    
+    var geoCoder = CLGeocoder()
     var trajectory: [CLLocation] = Array()
     var labels: [trans_modeOutput] = Array()
     
@@ -24,10 +29,15 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         mapView.delegate = self
         mapView.showsCompass = true
         mapView.showsScale = true
+        mapView.setCenter(carLocation.coordinate, animated: true)
         
         drawTrajectory()
         
         showCarLocation()
+        
+        setCarLocationInformation()
+        
+        additionalSafeAreaInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: informationView.bounds.height, right: 0.0)
 
     }
     
@@ -51,12 +61,47 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
     }
     
     func showCarLocation(){
-        if let coord = carLocation?.coordinate {
-            let carLocAnnotation = MKPointAnnotation()
-            carLocAnnotation.title = "CAR"
-            carLocAnnotation.coordinate = coord
-            mapView.addAnnotation(carLocAnnotation)
+        let carLocAnnotation = MKPointAnnotation()
+        carLocAnnotation.title = "Your Car"
+        carLocAnnotation.coordinate = carLocation.coordinate
+        print(carLocation)
+        mapView.addAnnotation(carLocAnnotation)
+    }
+    
+    func setCarLocationInformation(){
+        var description = ""
+        
+        geoCoder.reverseGeocodeLocation(carLocation) {
+            (placemarks, error) in
+            if let adress = placemarks?.first?.postalAddress {
+                description = CNPostalAddressFormatter.string(from:adress, style: .mailingAddress) + "\n\n"
+                
+                if let currentLoc = AppDelegate.currentLocation{
+                    description += String(format: "Distance: %.1f km", currentLoc.distance(from: self.carLocation)/1000)
+                }
+                
+                description += "\n"
+                
+                if let currentAlt = AppDelegate.currentLocation?.altitude {
+                    description += String(format: "Relative Altitude: %d m",  Int(self.carLocation.altitude - currentAlt))
+                }
+                
+                description += "\n"
+                
+                if let f = self.carLocation.floor?.level {
+                   description = description + "Floor: " + String(f)
+                } else {
+                    description += "\n"
+                }
+                
+                self.parkingLocationInformationLabel.text = description
+            }
         }
+    
+    
+
+        
+        
     }
     
     
@@ -66,7 +111,19 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         
     }
     
+    @IBAction func reportAccuracyButton(_ sender: Any) {
+        
+        
+    }
     
+    @IBAction func getDirectionsButton(_ sender: Any) {
+        
+        let item = MKMapItem(placemark: MKPlacemark(coordinate: carLocation.coordinate))
+        item.name = "car"
+        
+        item.openInMaps(launchOptions: nil)
+
+    }
     
 }
 

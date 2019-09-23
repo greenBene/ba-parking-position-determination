@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +18,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hrK-el-9af">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </mapView>
-                            <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZY-2s-Bm6">
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZY-2s-Bm6">
                                 <rect key="frame" x="0.0" y="712" width="375" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R70-h7-PSZ">
@@ -33,7 +30,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="R70-h7-PSZ" secondAttribute="bottom" constant="30" id="1qj-0k-7OO"/>
                                     <constraint firstItem="R70-h7-PSZ" firstAttribute="leading" secondItem="DZY-2s-Bm6" secondAttribute="leading" constant="8" id="BC8-Oh-xQp"/>
@@ -56,8 +53,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="informationView" destination="DZY-2s-Bm6" id="qK8-Dx-2VD"/>
                         <outlet property="mapView" destination="hrK-el-9af" id="DkY-fR-hXg"/>
-                        <segue destination="wrc-C1-ack" kind="show" identifier="showCar" animates="NO" id="H92-3A-Sy1"/>
+                        <segue destination="wrc-C1-ack" kind="presentation" identifier="showCar" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="H92-3A-Sy1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -75,47 +73,122 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fgD-JT-5Mo">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvZ-Nj-kXS">
-                                <rect key="frame" x="0.0" y="712" width="375" height="100"/>
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvZ-Nj-kXS">
+                                <rect key="frame" x="0.0" y="489" width="375" height="323"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssJ-mK-acL">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="30"/>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                        <state key="normal" title="BACK"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZH-fA-Xdc">
+                                        <rect key="frame" x="10" y="252" width="355" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Report Accuracy"/>
+                                        <connections>
+                                            <action selector="detetimineParkingPositonButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yVw-XC-FSf"/>
+                                            <action selector="reportAccuracyButton:" destination="wrc-C1-ack" eventType="touchUpInside" id="tvz-OE-mpr"/>
+                                            <segue destination="QpN-V8-28n" kind="show" id="dcN-N2-YX4"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your car is parked at:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heZ-bW-Wf9">
+                                        <rect key="frame" x="10" y="33" width="315" height="26"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJH-l5-egw">
+                                        <rect key="frame" x="12" y="67" width="353" height="117"/>
+                                        <string key="text">Königin-Luise-Straße 37
+14195 Berlin
+Germany
+
+Distance: 1.5km
+Relative Altitude: +10 m
+Floor: 2. Floor</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsK-WU-5qE">
+                                        <rect key="frame" x="10" y="192" width="355" height="52"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="rkP-df-yXa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Directions"/>
+                                        <connections>
+                                            <action selector="detetimineParkingPositonButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PHU-1P-F5A"/>
+                                            <action selector="getDirectionsButton:" destination="wrc-C1-ack" eventType="touchUpInside" id="rsv-7a-NPV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssJ-mK-acL">
+                                        <rect key="frame" x="325" y="37" width="40" height="22"/>
+                                        <state key="normal" image="arrow.2.circlepath" catalog="system"/>
                                         <connections>
                                             <action selector="backButton:" destination="wrc-C1-ack" eventType="touchUpInside" id="iE3-w4-0kd"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="ssJ-mK-acL" firstAttribute="leading" secondItem="jvZ-Nj-kXS" secondAttribute="leading" id="FuL-yt-G6l"/>
-                                    <constraint firstAttribute="bottom" secondItem="ssJ-mK-acL" secondAttribute="bottom" constant="35" id="Gah-F5-F7v"/>
-                                    <constraint firstAttribute="trailing" secondItem="ssJ-mK-acL" secondAttribute="trailing" id="LwG-7z-26m"/>
-                                    <constraint firstItem="ssJ-mK-acL" firstAttribute="top" secondItem="jvZ-Nj-kXS" secondAttribute="top" constant="35" id="MqE-kp-Tsv"/>
-                                    <constraint firstAttribute="height" constant="100" id="yCm-lp-9wS"/>
+                                    <constraint firstAttribute="height" constant="323" id="1bd-49-2s5"/>
+                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="heZ-bW-Wf9" secondAttribute="trailing" constant="50" id="4tt-aW-tQe"/>
+                                    <constraint firstItem="ssJ-mK-acL" firstAttribute="leading" secondItem="heZ-bW-Wf9" secondAttribute="trailing" id="Agv-ux-bI5"/>
+                                    <constraint firstItem="sJH-l5-egw" firstAttribute="top" secondItem="ssJ-mK-acL" secondAttribute="bottom" constant="8" id="C2W-o7-fbq"/>
+                                    <constraint firstItem="kZH-fA-Xdc" firstAttribute="leading" secondItem="jvZ-Nj-kXS" secondAttribute="leading" constant="10" id="Dg4-3h-TWo"/>
+                                    <constraint firstItem="sJH-l5-egw" firstAttribute="leading" secondItem="jvZ-Nj-kXS" secondAttribute="leading" constant="12" id="Fkv-3B-aK8"/>
+                                    <constraint firstItem="GsK-WU-5qE" firstAttribute="leading" secondItem="jvZ-Nj-kXS" secondAttribute="leading" constant="10" id="Fsr-ll-lDx"/>
+                                    <constraint firstAttribute="trailing" secondItem="kZH-fA-Xdc" secondAttribute="trailing" constant="10" id="GcU-cX-VM1"/>
+                                    <constraint firstItem="heZ-bW-Wf9" firstAttribute="leading" secondItem="jvZ-Nj-kXS" secondAttribute="leading" constant="10" id="KAA-t5-115"/>
+                                    <constraint firstItem="GsK-WU-5qE" firstAttribute="top" secondItem="sJH-l5-egw" secondAttribute="bottom" constant="8" id="KOx-qN-3me"/>
+                                    <constraint firstItem="sJH-l5-egw" firstAttribute="top" secondItem="heZ-bW-Wf9" secondAttribute="bottom" constant="8" id="LtX-RT-mBQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="sJH-l5-egw" secondAttribute="trailing" constant="10" id="Ofm-4X-i59"/>
+                                    <constraint firstItem="kZH-fA-Xdc" firstAttribute="top" secondItem="GsK-WU-5qE" secondAttribute="bottom" constant="8" id="iJe-U4-xfo"/>
+                                    <constraint firstAttribute="bottom" secondItem="kZH-fA-Xdc" secondAttribute="bottom" constant="35" id="kFg-EA-EAW"/>
+                                    <constraint firstAttribute="trailing" secondItem="ssJ-mK-acL" secondAttribute="trailing" constant="10" id="sOn-Jc-GVQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="GsK-WU-5qE" secondAttribute="trailing" constant="10" id="yrO-55-akD"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="jvZ-Nj-kXS" firstAttribute="trailing" secondItem="JY0-tv-7Jw" secondAttribute="trailing" id="1Dy-KW-WFI"/>
                             <constraint firstItem="fgD-JT-5Mo" firstAttribute="trailing" secondItem="JY0-tv-7Jw" secondAttribute="trailing" id="3iy-Pq-2gV"/>
                             <constraint firstItem="fgD-JT-5Mo" firstAttribute="top" secondItem="mS2-9f-BHx" secondAttribute="top" id="B9B-nv-FB3"/>
-                            <constraint firstItem="jvZ-Nj-kXS" firstAttribute="leading" secondItem="JY0-tv-7Jw" secondAttribute="leading" id="Dnr-nH-ega"/>
+                            <constraint firstAttribute="bottom" secondItem="jvZ-Nj-kXS" secondAttribute="bottom" id="BDW-wF-WWW"/>
+                            <constraint firstItem="jvZ-Nj-kXS" firstAttribute="leading" secondItem="JY0-tv-7Jw" secondAttribute="leading" id="d5R-lx-9wt"/>
                             <constraint firstItem="fgD-JT-5Mo" firstAttribute="leading" secondItem="JY0-tv-7Jw" secondAttribute="leading" id="oRu-RK-WgD"/>
+                            <constraint firstItem="jvZ-Nj-kXS" firstAttribute="trailing" secondItem="JY0-tv-7Jw" secondAttribute="trailing" id="pR9-Ja-gTA"/>
                             <constraint firstAttribute="bottom" secondItem="fgD-JT-5Mo" secondAttribute="bottom" id="uwF-fH-yEu"/>
-                            <constraint firstAttribute="bottom" secondItem="jvZ-Nj-kXS" secondAttribute="bottom" id="wdJ-vT-PBW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JY0-tv-7Jw"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Nac-qb-ecM"/>
                     <connections>
+                        <outlet property="informationView" destination="jvZ-Nj-kXS" id="JWq-J9-8G2"/>
                         <outlet property="mapView" destination="fgD-JT-5Mo" id="E8Z-pq-yu9"/>
+                        <outlet property="parkingLocationInformationLabel" destination="sJH-l5-egw" id="7mJ-S5-SU2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iSA-Qf-MGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242.4000000000001" y="126.35467980295567"/>
         </scene>
+        <!--Feedback View Controler-->
+        <scene sceneID="nbc-YQ-Z6c">
+            <objects>
+                <viewController id="QpN-V8-28n" customClass="FeedbackViewControler" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FXy-sO-F3m">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ARX-ek-uf4"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="j4q-dv-Lav"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v0s-Cb-7zL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2289" y="126"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="arrow.2.circlepath" catalog="system" width="64" height="52"/>
+    </resources>
 </document>
