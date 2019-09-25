@@ -32,9 +32,7 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         mapView.setCenter(carLocation.coordinate, animated: true)
         
         drawTrajectory()
-        
         showCarLocation()
-        
         setCarLocationInformation()
         
         additionalSafeAreaInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: informationView.bounds.height, right: 0.0)
@@ -48,11 +46,11 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         for index in 0 ..< labels.count {
             let coords: [CLLocationCoordinate2D] = [trajectory[index].coordinate, trajectory[index+1].coordinate, trajectory[index+2].coordinate]
             
+            print(labels[index].target)
+            
             switch labels[index].target {
-            case 0: overlays.append(BikeMKPolyline(coordinates: coords, count: coords.count))
-            case 1: overlays.append(CarMKPolyline(coordinates: coords, count: coords.count))
-            case 2: overlays.append(TrainMKPolyline(coordinates: coords, count: coords.count))
-            case 3: overlays.append(WalkMKPolyline(coordinates: coords, count: coords.count))
+            case 0: overlays.append(CarMKPolyline(coordinates: coords, count: coords.count))
+            case 1: overlays.append(WalkMKPolyline(coordinates: coords, count: coords.count))
             default: print("Should not happen")
             }
         }
@@ -61,10 +59,9 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
     }
     
     func showCarLocation(){
-        let carLocAnnotation = MKPointAnnotation()
-        carLocAnnotation.title = "Your Car"
-        carLocAnnotation.coordinate = carLocation.coordinate
-        print(carLocation)
+        let carLocAnnotation = CarAnnotation(coordinate: carLocation.coordinate)
+        
+        mapView.addOverlay(MKCircle(center: carLocAnnotation.coordinate, radius: 50))
         mapView.addAnnotation(carLocAnnotation)
     }
     
@@ -98,20 +95,23 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
             }
         }
     
-    
-
-        
-        
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is FeedbackViewControler {
+            let seg = segue.destination as! FeedbackViewControler
+            seg.carLocation = carLocation
+        }
+    }
+    
+    // MARK: Button Actions
     
     @IBAction func backButton(_ sender: Any) {
-        
         self.dismiss(animated: false, completion: nil)
-        
     }
     
     @IBAction func reportAccuracyButton(_ sender: Any) {
+        
         
         
     }
@@ -127,25 +127,36 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
     
 }
 
+// MARK: MKMapViewDelegate
+
 extension ParkingPositionDeterminedMapViewControler: MKMapViewDelegate{
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
             let lineView = MKPolylineRenderer(overlay: overlay)
+            lineView.lineWidth = 1
             
-            if overlay is BikeMKPolyline {
-                lineView.strokeColor = UIColor.green
-            } else if overlay is CarMKPolyline {
-                lineView.strokeColor = UIColor.black
-            } else if overlay is TrainMKPolyline {
+            if overlay is CarMKPolyline {
                 lineView.strokeColor = UIColor.blue
             } else if overlay is WalkMKPolyline {
-                lineView.strokeColor = UIColor.red
+                lineView.strokeColor = UIColor.green
             }
-            lineView.lineWidth = 1
+            
             return lineView
+        } else if overlay is MKCircle {
+            let renderer = MKCircleRenderer(overlay: overlay)
+            renderer.fillColor = UIColor.darkGray.withAlphaComponent(0.3)
+            renderer.strokeColor = UIColor.darkGray
+            renderer.lineWidth = 2
+            return renderer
         }
         return MKOverlayRenderer()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = CarAnnotationView(annotation: annotation, reuseIdentifier: "Car")
+        annotationView.canShowCallout = true
+        return annotationView
     }
     
 }

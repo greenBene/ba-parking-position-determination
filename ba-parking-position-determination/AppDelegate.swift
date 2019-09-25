@@ -34,12 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         locationManager.requestAlwaysAuthorization()
         
-        print(locationManager.requestAlwaysAuthorization())
         locationManager.delegate = self
 
         // start reveicing location
-        locationManager.distanceFilter = 15 // meters // no need for staypoint detection?
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 5
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
         

@@ -13,6 +13,8 @@ import CoreLocation
 class ParkingPositionDetermination {
     
     enum ClassificationError: Error {
+        case notEnoughData
+        case noParkingLocationDetermined
         case runtimeError(String)
     }
     
@@ -25,13 +27,13 @@ class ParkingPositionDetermination {
     
     func getTransportationModeName(_ i: Int) -> String {
         switch i {
-        case 0:
+        case 10:
             return "bike"
-        case 1:
+        case 0:
             return "car"
-        case 2:
+        case 20:
             return "train"
-        case 3:
+        case 1:
             return "walk"
         default:
             return ""
@@ -71,7 +73,6 @@ class ParkingPositionDetermination {
         var counter = 0
         
         for i in (0 ..< labels.count).reversed() {
-            print(traj[i].timestamp)
             if( getTransportationModeName(Int(labels[i].target)) == "car" ){
                 counter += 1
             } else {
@@ -82,8 +83,8 @@ class ParkingPositionDetermination {
                 return traj[i + 5]
             }
         }
-    
-        throw ClassificationError.runtimeError("No Parking Position was determined")
+        
+        throw ClassificationError.noParkingLocationDetermined
     }
     
     private func loadTrajectory() -> [CLLocation] {
@@ -109,6 +110,10 @@ class ParkingPositionDetermination {
         var velo: [Double] = Array() // Velocity in meters/second
         var acce: [Double] = Array() // Acceleration in meters/(second*second)
         var bearCh: [Double] = Array() // Bearing chagne in degree
+        
+        if(locations.count < 4) {
+            throw ClassificationError.notEnoughData
+        }
         
         
         for index in 0 ..< locations.count - 1 {
@@ -144,11 +149,6 @@ class ParkingPositionDetermination {
         
         var features: [trans_modeInput] = Array()
 
-        if locations.count < 4 {
-            throw ClassificationError.runtimeError("not enough location data collected")
-        }
-
-        
         for index in 0 ..< locations.count - 4 {
             
             let v0 = velo[ index ]

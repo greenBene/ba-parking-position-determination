@@ -39,8 +39,11 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
         
     }
     
-    
-    // MARK: Actions
+    func showErrorMessage(message: String){
+        let alert = UIAlertController(title: "Attention", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -49,6 +52,8 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
         con.trajectory = trajectory
         con.labels = labels
     }
+    
+    // MARK: Actions
     
     @IBAction func detetimineParkingPositonButton(_ sender: Any) {
         print("Determine Parkign Position")
@@ -60,12 +65,13 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
             
             performSegue(withIdentifier: "showCar", sender: nil)
             
-        } catch{
-            print("There was an issue while determining the parking locaiton")
+        } catch ParkingPositionDetermination.ClassificationError.noParkingLocationDetermined {
+            showErrorMessage(message: "We cannot detect enough car movement. Please try again after using a car.")
+        } catch ParkingPositionDetermination.ClassificationError.notEnoughData {
+            showErrorMessage(message: "Not enough data is collected. Please try again later.")
+        } catch {
+            showErrorMessage(message: error.localizedDescription)
         }
-        
-        
-        
         
     }
     

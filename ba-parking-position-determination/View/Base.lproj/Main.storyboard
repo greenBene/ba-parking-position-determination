@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,17 +12,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="LoadingMapViewController" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hrK-el-9af">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </mapView>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZY-2s-Bm6">
-                                <rect key="frame" x="0.0" y="712" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="380" width="320" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R70-h7-PSZ">
-                                        <rect key="frame" x="8" y="30" width="359" height="40"/>
+                                        <rect key="frame" x="8" y="30" width="304" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Determine Parking Position"/>
                                         <connections>
@@ -67,33 +67,33 @@
             <objects>
                 <viewController id="wrc-C1-ack" customClass="ParkingPositionDeterminedMapViewControler" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mS2-9f-BHx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fgD-JT-5Mo">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </mapView>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvZ-Nj-kXS">
-                                <rect key="frame" x="0.0" y="489" width="375" height="323"/>
+                                <rect key="frame" x="0.0" y="157" width="320" height="323"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZH-fA-Xdc">
-                                        <rect key="frame" x="10" y="252" width="355" height="36"/>
+                                        <rect key="frame" x="10" y="252" width="300" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Report Accuracy"/>
                                         <connections>
                                             <action selector="detetimineParkingPositonButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yVw-XC-FSf"/>
                                             <action selector="reportAccuracyButton:" destination="wrc-C1-ack" eventType="touchUpInside" id="tvz-OE-mpr"/>
-                                            <segue destination="QpN-V8-28n" kind="show" id="dcN-N2-YX4"/>
+                                            <segue destination="FAr-Sl-2J7" kind="presentation" modalPresentationStyle="fullScreen" id="M7m-PJ-NqM"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your car is parked at:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heZ-bW-Wf9">
-                                        <rect key="frame" x="10" y="33" width="315" height="26"/>
+                                        <rect key="frame" x="10" y="33" width="260" height="26"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJH-l5-egw">
-                                        <rect key="frame" x="12" y="67" width="353" height="117"/>
+                                        <rect key="frame" x="12" y="67" width="298" height="117"/>
                                         <string key="text">Königin-Luise-Straße 37
 14195 Berlin
 Germany
@@ -106,7 +106,7 @@ Floor: 2. Floor</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsK-WU-5qE">
-                                        <rect key="frame" x="10" y="192" width="355" height="52"/>
+                                        <rect key="frame" x="10" y="192" width="300" height="52"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="rkP-df-yXa"/>
@@ -120,7 +120,7 @@ Floor: 2. Floor</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssJ-mK-acL">
-                                        <rect key="frame" x="325" y="37" width="40" height="22"/>
+                                        <rect key="frame" x="270" y="37" width="40" height="22"/>
                                         <state key="normal" image="arrow.2.circlepath" catalog="system"/>
                                         <connections>
                                             <action selector="backButton:" destination="wrc-C1-ack" eventType="touchUpInside" id="iE3-w4-0kd"/>
@@ -169,23 +169,91 @@ Floor: 2. Floor</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iSA-Qf-MGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1242.4000000000001" y="126.35467980295567"/>
+            <point key="canvasLocation" x="1225" y="129"/>
         </scene>
         <!--Feedback View Controler-->
-        <scene sceneID="nbc-YQ-Z6c">
+        <scene sceneID="gIj-fh-ult">
             <objects>
-                <viewController id="QpN-V8-28n" customClass="FeedbackViewControler" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="FXy-sO-F3m">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                <viewController id="FAr-Sl-2J7" customClass="FeedbackViewControler" customModule="ba_parking_position_determination" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="npb-Xy-DjS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCh-po-T8r">
+                                <rect key="frame" x="16" y="316.5" width="288" height="100.5"/>
+                                <string key="text">Accuracy: 
+TimeSinceParking: 
+DeviceId:
+Model:
+OS: 
+</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmq-bd-g32">
+                                <rect key="frame" x="16" y="8" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report Accuracy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfo-Pb-UCM">
+                                <rect key="frame" x="16" y="46" width="288" height="43"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRx-UO-7e7">
+                                <rect key="frame" x="16" y="97" width="288" height="167.5"/>
+                                <string key="text">To help the development of the application, you can submit the accuracy of your parking position.
+Please send the accuracy at the location where your car is parked. The application will sent the distance between your current position and the determined parking position of your car. Your actual location will not be sent.
+Thank you very much for your help!</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shared Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6no-OT-12a">
+                                <rect key="frame" x="16" y="272.5" width="288" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNs-hf-dec">
+                                <rect key="frame" x="16" y="432" width="288" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="s7f-qM-X78"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Report Accuracy"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="ARX-ek-uf4"/>
+                        <constraints>
+                            <constraint firstItem="Wfo-Pb-UCM" firstAttribute="leading" secondItem="xFm-Rn-gAR" secondAttribute="leading" constant="16" id="0mY-I7-R6x"/>
+                            <constraint firstItem="cmq-bd-g32" firstAttribute="leading" secondItem="xFm-Rn-gAR" secondAttribute="leading" constant="16" id="BhW-G6-gM3"/>
+                            <constraint firstItem="jRx-UO-7e7" firstAttribute="leading" secondItem="xFm-Rn-gAR" secondAttribute="leading" constant="16" id="C6e-UH-2bM"/>
+                            <constraint firstItem="SCh-po-T8r" firstAttribute="leading" secondItem="xFm-Rn-gAR" secondAttribute="leading" constant="16" id="JAS-Vk-v9o"/>
+                            <constraint firstItem="Wfo-Pb-UCM" firstAttribute="top" secondItem="cmq-bd-g32" secondAttribute="bottom" constant="8" id="LJN-OO-kPw"/>
+                            <constraint firstItem="6no-OT-12a" firstAttribute="leading" secondItem="xFm-Rn-gAR" secondAttribute="leading" constant="16" id="QCF-Gs-CpH"/>
+                            <constraint firstItem="xFm-Rn-gAR" firstAttribute="trailing" secondItem="Wfo-Pb-UCM" secondAttribute="trailing" constant="16" id="bjW-Hm-Tzf"/>
+                            <constraint firstItem="SCh-po-T8r" firstAttribute="top" secondItem="6no-OT-12a" secondAttribute="bottom" constant="8" id="dMM-4H-HpR"/>
+                            <constraint firstItem="xFm-Rn-gAR" firstAttribute="trailing" secondItem="xNs-hf-dec" secondAttribute="trailing" constant="16" id="k6w-QC-f1R"/>
+                            <constraint firstItem="xFm-Rn-gAR" firstAttribute="bottom" secondItem="xNs-hf-dec" secondAttribute="bottom" constant="8" id="kJU-0T-mqU"/>
+                            <constraint firstItem="jRx-UO-7e7" firstAttribute="top" secondItem="Wfo-Pb-UCM" secondAttribute="bottom" constant="8" id="lAM-xU-PFC"/>
+                            <constraint firstItem="6no-OT-12a" firstAttribute="top" secondItem="jRx-UO-7e7" secondAttribute="bottom" constant="8" id="nI7-9F-hc3"/>
+                            <constraint firstItem="xNs-hf-dec" firstAttribute="leading" secondItem="xFm-Rn-gAR" secondAttribute="leading" constant="16" id="q8b-Rr-wB6"/>
+                            <constraint firstItem="xFm-Rn-gAR" firstAttribute="trailing" secondItem="jRx-UO-7e7" secondAttribute="trailing" constant="16" id="qRR-fQ-CFW"/>
+                            <constraint firstItem="cmq-bd-g32" firstAttribute="top" secondItem="xFm-Rn-gAR" secondAttribute="top" constant="8" id="trG-Pd-WAe"/>
+                            <constraint firstItem="xFm-Rn-gAR" firstAttribute="trailing" secondItem="6no-OT-12a" secondAttribute="trailing" constant="16" id="vY1-FS-IgQ"/>
+                            <constraint firstItem="xFm-Rn-gAR" firstAttribute="trailing" secondItem="SCh-po-T8r" secondAttribute="trailing" constant="16" id="w4q-Sv-JIb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xFm-Rn-gAR"/>
                     </view>
-                    <navigationItem key="navigationItem" id="j4q-dv-Lav"/>
+                    <connections>
+                        <outlet property="sharedInformationLabel" destination="SCh-po-T8r" id="UdU-0S-jqK"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="v0s-Cb-7zL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YuH-nE-E0m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2289" y="126"/>
+            <point key="canvasLocation" x="2448.8000000000002" y="132.26600985221674"/>
         </scene>
     </scenes>
     <resources>
