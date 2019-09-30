@@ -7,5 +7,5 @@ target 'ba-parking-position-determination' do
 
   # Pods for ba-parking-position-determination
   pod 'RealmSwift'
-
+  pod 'Alamofire'
 end
