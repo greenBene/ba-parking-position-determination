@@ -16,6 +16,7 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     
     @IBOutlet weak var informationView: UIView!
     
+    
     let regionRadius: CLLocationDistance = 1000
     let locationManager = CLLocationManager()
     let realm = try! Realm()
@@ -27,7 +28,6 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
@@ -57,6 +57,7 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     
     @IBAction func detetimineParkingPositonButton(_ sender: Any) {
         print("Determine Parkign Position")
+        
 
         let det =  ParkingPositionDetermination()
         

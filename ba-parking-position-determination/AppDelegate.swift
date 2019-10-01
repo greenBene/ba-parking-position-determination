@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         locationManager.delegate = self
 
         // start reveicing location
-        locationManager.distanceFilter = 5
+        locationManager.distanceFilter = 30
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()

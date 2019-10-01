@@ -110,16 +110,11 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         self.dismiss(animated: false, completion: nil)
     }
     
-    @IBAction func reportAccuracyButton(_ sender: Any) {
-        
-        
-        
-    }
     
     @IBAction func getDirectionsButton(_ sender: Any) {
         
         let item = MKMapItem(placemark: MKPlacemark(coordinate: carLocation.coordinate))
-        item.name = "car"
+        item.name = "My Car"
         
         item.openInMaps(launchOptions: nil)
 

@@ -12,38 +12,27 @@ import CoreLocation
 
 class ParkingPositionDetermination {
     
+    let realm = try! Realm()
+    
+    let CONSECUTIVE_CAR_WINDOWS = 4
+    
     enum ClassificationError: Error {
         case notEnoughData
         case noParkingLocationDetermined
         case runtimeError(String)
     }
     
-    enum TransportationMode {
-        case bike
-        case car
-        case train
-        case walk
-    }
-    
     func getTransportationModeName(_ i: Int) -> String {
         switch i {
-        case 10:
-            return "bike"
         case 0:
             return "car"
-        case 20:
-            return "train"
         case 1:
             return "walk"
         default:
             return ""
         }
     }
-    
-    let realm = try! Realm()
-    
-    
-    
+
     func determineParkingPosition() throws -> ([CLLocation], [trans_modeOutput], CLLocation?){
         
         let trajectory = loadTrajectory()
@@ -54,7 +43,8 @@ class ParkingPositionDetermination {
         
     
         do {
-            let classifier = trans_mode()
+            let classifier = trans_mode() // Initiates the trained xgboost classifier based on the created file trans_mode.mlmodel
+            
             let features = try featureExtraction(locations: trajectory)
         
             output = try classifier.predictions(inputs: features)
@@ -62,6 +52,7 @@ class ParkingPositionDetermination {
             loc =  try determineParkingPos(trajectory: trajectory, labels: output)
 
         } catch {
+            
             throw error
         }
 
@@ -79,8 +70,8 @@ class ParkingPositionDetermination {
                 counter = 0
             }
             
-            if(counter == 3){
-                return traj[i + 5]
+            if(counter == CONSECUTIVE_CAR_WINDOWS){
+                return traj[i + CONSECUTIVE_CAR_WINDOWS]
             }
         }
         
@@ -91,13 +82,15 @@ class ParkingPositionDetermination {
         var locations: [CLLocation] = Array()
         
         realm.objects(Location.self).sorted(byKeyPath: "timestamp", ascending: true)
+            
             .map({(loc: Location) -> CLLocation in
                 return CLLocation(coordinate: CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude),
                                   altitude: loc.altitude,
                                   horizontalAccuracy: loc.horizontalAccuracy,
                                   verticalAccuracy: loc.verticalAccuracy,
                                   timestamp: loc.timestamp)})
-            .forEach { l in locations.append(l)}
+            
+            .forEach { l in locations.append(l) }
         
         return locations
     }
@@ -122,10 +115,12 @@ class ParkingPositionDetermination {
             let snd = locations[ index + 1 ]
             
             
-            let t = fst.timestamp.timeIntervalSince(snd.timestamp)
-            let d = fst.distance(from: snd)
+            let t = snd.timestamp.timeIntervalSince(fst.timestamp)
+            let d = snd.distance(from: fst)
             let b = bearing(lat1: fst.coordinate.latitude, lon1: fst.coordinate.longitude,
                             lat2: snd.coordinate.latitude, lon2: snd.coordinate.longitude)
+            
+            print(t)
             
             let v = d/t
             

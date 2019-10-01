@@ -24,7 +24,7 @@ class FeedbackViewControler : UIViewController {
     var timeSinceParking: Double = -1
     
     override func viewDidLoad() {
-        // determine stuff.
+        
         determineInformation()
         
     }
@@ -105,9 +105,6 @@ class FeedbackViewControler : UIViewController {
         self.present(alert, animated: true)
 
     }
-    
-    
-    
     
     
     @IBAction func backButton(_ sender: Any) {
