@@ -197,6 +197,58 @@ class ParkingPositionDetermination {
         
         return features
     }
+    
+    
+    private func getStayPoints(locations: [CLLocation], distThresh: Double, timeThresh:Double) -> [StayPoint] {
+        
+        var i = 0; let pointNum = locations.count;
+        var stayPoints: [StayPoint] = Array()
+        
+        while i < pointNum {
+            var j = i + 1
+            while j < pointNum {
+                let p_i = locations[i]
+                let p_j = locations[j]
+                let dist = p_i.distance(from: p_j)
+                
+                if dist > distThresh {
+                    let timeDelta = p_j.timestamp.timeIntervalSince(p_i.timestamp)
+                    if timeDelta > timeThresh {
+                        
+                        let meanLoc = computeMeanCoord(coords: Array(locations[i...j]))
+                        
+                        stayPoints.append(
+                            StayPoint(lat: meanLoc.latitude, lon: meanLoc.longitude,
+                                                    arrivalTime: p_i.timestamp, leaveTime: p_j.timestamp,
+                                                    distThresh: distThresh, timeThresh: timeThresh)
+                        )
+                    }
+                    break
+                }
+                j = j+1
+            }
+            
+            i = j // Algorithm in source lacks this line. Otherwise potential infinity loop.
+        }
+        
+        
+        return stayPoints
+    }
+    
+    private func computeMeanCoord(coords: [CLLocation]) -> CLLocationCoordinate2D{
+        var lat: Double = 0
+        var lon: Double = 0
+        
+        for c in coords {
+            lat += c.coordinate.latitude
+            lon += c.coordinate.longitude
+        }
+        
+        lat /= Double(coords.count)
+        lon /= Double(coords.count)
+        
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
         
     private func bearing(lat1: Double, lon1: Double, lat2: Double, lon2:Double) -> Double {
         let lat1_r = deg2rad(x: lat1)
