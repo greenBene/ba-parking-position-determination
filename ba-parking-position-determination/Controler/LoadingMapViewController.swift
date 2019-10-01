@@ -22,6 +22,7 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     let realm = try! Realm()
     
     var carLocation: CLLocation? = nil
+    var stayPoints: [StayPoint] = Array()
     var trajectory: [CLLocation] = Array()
     var labels: [trans_modeOutput] = Array()
     
@@ -49,8 +50,9 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let con = segue.destination as! ParkingPositionDeterminedMapViewControler
         con.carLocation = carLocation!
-        con.trajectory = trajectory
+        con.stayPoints = stayPoints
         con.labels = labels
+        con.trajectory = trajectory
     }
     
     // MARK: Actions
@@ -61,8 +63,10 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
 
         let det =  ParkingPositionDetermination()
         
+        
         do {
-            (trajectory, labels, carLocation) = try det.determineParkingPosition()
+            (carLocation, stayPoints) = try det.determineParkingPosition()
+            (trajectory, labels) = try det.determineTransportationModes()
             
             performSegue(withIdentifier: "showCar", sender: nil)
             

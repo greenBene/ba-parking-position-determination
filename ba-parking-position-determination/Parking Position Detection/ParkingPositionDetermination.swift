@@ -15,6 +15,8 @@ class ParkingPositionDetermination {
     let realm = try! Realm()
     
     let CONSECUTIVE_CAR_WINDOWS = 4
+    let DISTANCE_THRESHOLD: Double = 200 //in meter
+    let TIME_THRESHOLD: Double = 300 // in seconds
     
     enum ClassificationError: Error {
         case notEnoughData
@@ -32,35 +34,53 @@ class ParkingPositionDetermination {
             return ""
         }
     }
-
-    func determineParkingPosition() throws -> ([CLLocation], [trans_modeOutput], CLLocation?){
-        
-        let trajectory = loadTrajectory()
-
-        var output: [trans_modeOutput] = Array()
-        
-        var loc: CLLocation? = nil
-        
     
-        do {
-            let classifier = trans_mode() // Initiates the trained xgboost classifier based on the created file trans_mode.mlmodel
-            
-            let features = try featureExtraction(locations: trajectory)
+    
+    
+    
+    func determineTransportationModes() throws -> ([CLLocation], [trans_modeOutput]) {
+        let trajectory = loadTrajectory()
+        let classifier = trans_mode()
+        let features = try featureExtraction(locations: trajectory)
+        let output = try classifier.predictions(inputs: features)
         
-            output = try classifier.predictions(inputs: features)
-            
-            loc =  try determineParkingPos(trajectory: trajectory, labels: output)
+        return (trajectory, output)
+    }
 
-        } catch {
+
+    func determineParkingPosition() throws -> (CLLocation, [StayPoint]){
+        
+        // Load trajectory
+        let trajectory = loadTrajectory()
+        
+        let stayPoints = getStayPoints(locations: trajectory, distThresh: DISTANCE_THRESHOLD, timeThresh: TIME_THRESHOLD)
+        
+        
+        // Cut it into trips based on stay points
+        let trips = cutIntoTrips(stayPoints: stayPoints, trajectory: trajectory)
+        
+        let classifier = trans_mode()
+        
+        for trip in trips.reversed() {
             
-            throw error
+            let features = try featureExtraction(locations: trip)
+            
+            let output = try classifier.predictions(inputs: features)
+            
+            if let loc =  try determineParkingPosLocation(trajectory: trip, labels: output) {
+                return (loc, stayPoints)
+            }
+            
         }
-
-        return (trajectory, output, loc)
+        
+        throw ClassificationError.noParkingLocationDetermined
         
     }
     
-    private func determineParkingPos(trajectory traj: [CLLocation], labels: [trans_modeOutput]) throws -> CLLocation? {
+    
+    
+    
+    private func determineParkingPosLocation(trajectory traj: [CLLocation], labels: [trans_modeOutput]) throws -> CLLocation? {
         var counter = 0
         
         for i in (0 ..< labels.count).reversed() {
@@ -94,6 +114,10 @@ class ParkingPositionDetermination {
         
         return locations
     }
+    
+    
+    // MARK: Machine Learning Realated Functions
+    
     
     private func featureExtraction(locations: [CLLocation]) throws -> [trans_modeInput] {
         var time: [Double] = Array() // Time difference in seconds
@@ -198,6 +222,8 @@ class ParkingPositionDetermination {
         return features
     }
     
+    // MARK: Stay Point based functions
+    
     
     private func getStayPoints(locations: [CLLocation], distThresh: Double, timeThresh:Double) -> [StayPoint] {
         
@@ -231,9 +257,44 @@ class ParkingPositionDetermination {
             i = j // Algorithm in source lacks this line. Otherwise potential infinity loop.
         }
         
+        let firstLocation = locations[0]
+        let lastLocation = locations[locations.count - 1]
+        stayPoints = [StayPoint(lat:firstLocation.coordinate.latitude , lon: firstLocation.coordinate.longitude,
+                                arrivalTime: firstLocation.timestamp, leaveTime: firstLocation.timestamp, distThresh: 0, timeThresh: 0)] +
+                     stayPoints
         
         return stayPoints
     }
+    
+    private func cutIntoTrips(stayPoints: [StayPoint], trajectory: [CLLocation]) -> [[CLLocation]] {
+        var trips : [[CLLocation]]  = Array()
+        
+        for i in (0 ..< stayPoints.count - 1).reversed() {
+            // From stayPoint i to stayPoint i+1
+            let s_start = stayPoints[ i ]
+            let s_stop = stayPoints[ i+1 ]
+            
+            let t_start = trajectory.firstIndex {
+                t in
+                return t.timestamp.compare(s_start.leaveTime) != .orderedAscending
+            }
+            
+            let t_stop = trajectory.lastIndex {
+                t in
+                return t.timestamp.compare(s_stop.arrivalTime) != .orderedAscending
+            }
+            
+            guard let t_start_i = t_start else { continue }
+            guard let t_stop_i = t_stop else { continue }
+            
+            trips.append(Array(trajectory[t_start_i ... t_stop_i]))
+        }
+        
+        return trips
+    }
+    
+    
+    // MARK: Helper Methods
     
     private func computeMeanCoord(coords: [CLLocation]) -> CLLocationCoordinate2D{
         var lat: Double = 0

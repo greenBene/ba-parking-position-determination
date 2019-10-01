@@ -9,7 +9,8 @@
 import Foundation
 import MapKit
 
-class StayPoint: CLLocation {
+class StayPoint {
+    let coordinates: CLLocationCoordinate2D
     let arrivalTime: Date
     let leaveTime: Date
     let distanceThreshold: Double
@@ -21,12 +22,8 @@ class StayPoint: CLLocation {
         self.leaveTime = leaveTime
         self.distanceThreshold = distanceThreshold
         self.timeThreshold = timeThreshold
+        self.coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         
-        super.init(latitude: latitude, longitude: longitude)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }
