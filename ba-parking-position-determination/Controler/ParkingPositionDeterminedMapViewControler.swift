@@ -46,11 +46,12 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         
         for s in stayPoints{
             
+            print("time: ")
+            print(s.arrivalTime)
+            print(", coord: ")
             print(s.coordinates)
-            let anno = MKPointAnnotation()
-            anno.coordinate = s.coordinates
-            anno.title = "StayPoint"
-            mapView.addAnnotation(anno)
+            
+            mapView.addOverlay(MKCircle(center: s.coordinates, radius: 100))
         }
         
         
@@ -62,8 +63,6 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         
         for index in 0 ..< labels.count {
             let coords: [CLLocationCoordinate2D] = [trajectory[index].coordinate, trajectory[index+1].coordinate, trajectory[index+2].coordinate]
-            
-            print(labels[index].target)
             
             switch labels[index].target {
             case 0: overlays.append(CarMKPolyline(coordinates: coords, count: coords.count))

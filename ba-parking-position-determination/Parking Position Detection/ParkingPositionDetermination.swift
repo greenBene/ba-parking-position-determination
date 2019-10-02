@@ -15,8 +15,8 @@ class ParkingPositionDetermination {
     let realm = try! Realm()
     
     let CONSECUTIVE_CAR_WINDOWS = 4
-    let DISTANCE_THRESHOLD: Double = 200 //in meter
-    let TIME_THRESHOLD: Double = 300 // in seconds
+    let DISTANCE_THRESHOLD: Double = 50 //in meter
+    let TIME_THRESHOLD: Double = 600 // in seconds
     
     enum ClassificationError: Error {
         case notEnoughData
@@ -39,7 +39,8 @@ class ParkingPositionDetermination {
     
     
     func determineTransportationModes() throws -> ([CLLocation], [trans_modeOutput]) {
-        let trajectory = loadTrajectory()
+        var trajectory = loadTrajectory()
+        trajectory = removeNoise(coords: trajectory)
         let classifier = trans_mode()
         let features = try featureExtraction(locations: trajectory)
         let output = try classifier.predictions(inputs: features)
@@ -51,7 +52,10 @@ class ParkingPositionDetermination {
     func determineParkingPosition() throws -> (CLLocation, [StayPoint]){
         
         // Load trajectory
-        let trajectory = loadTrajectory()
+        var trajectory = loadTrajectory()
+        
+        // Remove noise
+        trajectory = removeNoise(coords: trajectory)
         
         let stayPoints = getStayPoints(locations: trajectory, distThresh: DISTANCE_THRESHOLD, timeThresh: TIME_THRESHOLD)
         
@@ -143,8 +147,6 @@ class ParkingPositionDetermination {
             let d = snd.distance(from: fst)
             let b = bearing(lat1: fst.coordinate.latitude, lon1: fst.coordinate.longitude,
                             lat2: snd.coordinate.latitude, lon2: snd.coordinate.longitude)
-            
-            print(t)
             
             let v = d/t
             
@@ -241,7 +243,7 @@ class ParkingPositionDetermination {
                     let timeDelta = p_j.timestamp.timeIntervalSince(p_i.timestamp)
                     if timeDelta > timeThresh {
                         
-                        let meanLoc = computeMeanCoord(coords: Array(locations[i...j]))
+                        let meanLoc = computeAverageCoordinate(coords: Array(locations[i...j]))
                         
                         stayPoints.append(
                             StayPoint(lat: meanLoc.latitude, lon: meanLoc.longitude,
@@ -258,7 +260,6 @@ class ParkingPositionDetermination {
         }
         
         let firstLocation = locations[0]
-        let lastLocation = locations[locations.count - 1]
         stayPoints = [StayPoint(lat:firstLocation.coordinate.latitude , lon: firstLocation.coordinate.longitude,
                                 arrivalTime: firstLocation.timestamp, leaveTime: firstLocation.timestamp, distThresh: 0, timeThresh: 0)] +
                      stayPoints
@@ -294,9 +295,26 @@ class ParkingPositionDetermination {
     }
     
     
+    private func removeNoise(coords: [CLLocation]) -> [CLLocation] {
+        var cleaned: [CLLocation] = Array()
+        
+        guard cleaned.count > 5 else {
+            return coords
+        }
+        
+        for i in (2 ..< coords.count - 2) {
+            let meanCoord = computeAverageCoordinate(coords: Array(coords[i-2 ... i+2]))
+            
+            cleaned.append(CLLocation(coordinate: meanCoord, altitude: coords[i].altitude, horizontalAccuracy: coords[i].horizontalAccuracy, verticalAccuracy: coords[i].verticalAccuracy, timestamp: coords[i].timestamp))
+        }
+        
+        return cleaned
+    }
+    
+    
     // MARK: Helper Methods
     
-    private func computeMeanCoord(coords: [CLLocation]) -> CLLocationCoordinate2D{
+    private func computeAverageCoordinate(coords: [CLLocation]) -> CLLocationCoordinate2D{
         var lat: Double = 0
         var lon: Double = 0
         
@@ -310,6 +328,26 @@ class ParkingPositionDetermination {
         
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
+    
+    private func computeMeanCoordinate(coords: [CLLocation]) -> CLLocationCoordinate2D{
+        var latArr: [Double] = Array()
+        var lonArr: [Double] = Array()
+        
+        for c in coords {
+            latArr += [c.coordinate.latitude]
+            lonArr += [c.coordinate.longitude]
+        }
+        
+        latArr.sorted()
+        lonArr.sorted()
+        
+        let lat = latArr[latArr.count/2+1]
+        let lon = lonArr[lonArr.count/2+1]
+        
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
+    
+    
         
     private func bearing(lat1: Double, lon1: Double, lat2: Double, lon2:Double) -> Double {
         let lat1_r = deg2rad(x: lat1)
