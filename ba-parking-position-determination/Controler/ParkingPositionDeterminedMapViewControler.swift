@@ -21,6 +21,7 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
     
     var geoCoder = CLGeocoder()
     var trajectory: [CLLocation] = Array()
+    var stayPoints: [StayPoint] = Array()
     var labels: [trans_modeOutput] = Array()
     
     override func viewDidLoad() {
@@ -31,12 +32,24 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         mapView.showsScale = true
         mapView.setCenter(carLocation.coordinate, animated: true)
         
-        drawTrajectory()
+        //drawTrajectory()
+        //showStayPoints()
+        
         showCarLocation()
         setCarLocationInformation()
         
         additionalSafeAreaInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: informationView.bounds.height, right: 0.0)
 
+    }
+    
+    func showStayPoints() {
+        
+        for s in stayPoints{
+            
+            mapView.addOverlay(MKCircle(center: s.coordinates, radius: 100))
+        }
+        
+        
     }
     
     
@@ -45,8 +58,6 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         
         for index in 0 ..< labels.count {
             let coords: [CLLocationCoordinate2D] = [trajectory[index].coordinate, trajectory[index+1].coordinate, trajectory[index+2].coordinate]
-            
-            print(labels[index].target)
             
             switch labels[index].target {
             case 0: overlays.append(CarMKPolyline(coordinates: coords, count: coords.count))
@@ -149,9 +160,13 @@ extension ParkingPositionDeterminedMapViewControler: MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationView = CarAnnotationView(annotation: annotation, reuseIdentifier: "Car")
-        annotationView.canShowCallout = true
-        return annotationView
+        if(annotation is CarAnnotation){
+            let annotationView = CarAnnotationView(annotation: annotation, reuseIdentifier: "Car")
+            annotationView.canShowCallout = true
+            return annotationView
+        }
+        return MKAnnotationView(annotation: annotation, reuseIdentifier: "StayPoint")
+        
     }
     
 }
