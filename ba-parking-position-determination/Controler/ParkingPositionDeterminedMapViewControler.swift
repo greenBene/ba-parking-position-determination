@@ -32,9 +32,9 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
         mapView.showsScale = true
         mapView.setCenter(carLocation.coordinate, animated: true)
         
-        drawTrajectory()
+        //drawTrajectory()
+        //showStayPoints()
         
-        showStayPoints()
         showCarLocation()
         setCarLocationInformation()
         
@@ -45,11 +45,6 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
     func showStayPoints() {
         
         for s in stayPoints{
-            
-            print("time: ")
-            print(s.arrivalTime)
-            print(", coord: ")
-            print(s.coordinates)
             
             mapView.addOverlay(MKCircle(center: s.coordinates, radius: 100))
         }
@@ -77,7 +72,7 @@ class ParkingPositionDeterminedMapViewControler: UIViewController {
     func showCarLocation(){
         let carLocAnnotation = CarAnnotation(coordinate: carLocation.coordinate)
         
-        mapView.addOverlay(MKCircle(center: carLocAnnotation.coordinate, radius: 100))
+        mapView.addOverlay(MKCircle(center: carLocAnnotation.coordinate, radius: 50))
         mapView.addAnnotation(carLocAnnotation)
     }
     

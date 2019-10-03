@@ -26,4 +26,7 @@ class StayPoint {
         
     }
     
+    
+    public var description: String { return "StayPoint(coord(lat:\(coordinates.latitude), lon: \(coordinates.longitude)), arrival:\(arrivalTime), leave:\(leaveTime))"}
+    
 }

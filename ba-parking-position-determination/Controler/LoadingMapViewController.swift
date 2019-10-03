@@ -58,8 +58,6 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     // MARK: Actions
     
     @IBAction func detetimineParkingPositonButton(_ sender: Any) {
-        print("Determine Parkign Position")
-        
 
         let det =  ParkingPositionDetermination()
         

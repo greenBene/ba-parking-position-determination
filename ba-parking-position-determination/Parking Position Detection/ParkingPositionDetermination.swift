@@ -15,7 +15,7 @@ class ParkingPositionDetermination {
     let realm = try! Realm()
     
     let CONSECUTIVE_CAR_WINDOWS = 4
-    let DISTANCE_THRESHOLD: Double = 50 //in meter
+    let DISTANCE_THRESHOLD: Double = 100 //in meter
     let TIME_THRESHOLD: Double = 600 // in seconds
     
     enum ClassificationError: Error {
@@ -59,14 +59,12 @@ class ParkingPositionDetermination {
         
         let stayPoints = getStayPoints(locations: trajectory, distThresh: DISTANCE_THRESHOLD, timeThresh: TIME_THRESHOLD)
         
-        
         // Cut it into trips based on stay points
         let trips = cutIntoTrips(stayPoints: stayPoints, trajectory: trajectory)
         
         let classifier = trans_mode()
         
         for trip in trips.reversed() {
-            
             let features = try featureExtraction(locations: trip)
             
             let output = try classifier.predictions(inputs: features)
@@ -280,7 +278,7 @@ class ParkingPositionDetermination {
                 return t.timestamp.compare(s_start.leaveTime) != .orderedAscending
             }
             
-            let t_stop = trajectory.lastIndex {
+            let t_stop = trajectory.firstIndex {
                 t in
                 return t.timestamp.compare(s_stop.arrivalTime) != .orderedAscending
             }
