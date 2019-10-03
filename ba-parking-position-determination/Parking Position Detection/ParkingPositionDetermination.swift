@@ -254,6 +254,16 @@ class ParkingPositionDetermination {
                 j = j+1
             }
             
+            // Adaption of algorithm to also include entrance into latest potential staypoint
+            
+            if(j >= pointNum){
+                stayPoints.append(
+                    StayPoint(lat: locations[ i ].coordinate.latitude, lon: locations[ i ].coordinate.longitude,
+                                            arrivalTime: locations[ i ].timestamp, leaveTime: locations[ i ].timestamp,
+                                            distThresh: 0, timeThresh: 0)
+                )
+            }
+            
             i = j // Algorithm in source lacks this line. Otherwise potential infinity loop.
         }
         
