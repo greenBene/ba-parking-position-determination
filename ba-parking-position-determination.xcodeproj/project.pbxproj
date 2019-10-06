@@ -437,14 +437,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NZMZMNHZR2;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = H95M696D4J;
 				INFOPLIST_FILE = "ba-parking-position-determination/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "click.benedikt.ba-parking-position-determination";
+				PRODUCT_BUNDLE_IDENTIFIER = "click.benedikt.ba-parking-position";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -457,14 +458,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NZMZMNHZR2;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = H95M696D4J;
 				INFOPLIST_FILE = "ba-parking-position-determination/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "click.benedikt.ba-parking-position-determination";
+				PRODUCT_BUNDLE_IDENTIFIER = "click.benedikt.ba-parking-position";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

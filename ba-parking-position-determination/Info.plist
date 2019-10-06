@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -36,6 +36,8 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app uses your location data to determine the parking position of your car</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>The app uses your location data to determine the parking position of your car</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The app uses your location data to determine the parking position of your car</string>
