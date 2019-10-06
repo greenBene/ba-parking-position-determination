@@ -69,7 +69,7 @@ class ParkingPositionDetermination {
             
             let output = try classifier.predictions(inputs: features)
             
-            if let loc =  try determineParkingPosLocation(trajectory: trip, labels: output) {
+            if let loc =  try determineParkingPosCandidate(trajectory: trip, labels: output) {
                 return (loc, stayPoints)
             }
             
@@ -82,7 +82,7 @@ class ParkingPositionDetermination {
     
     
     
-    private func determineParkingPosLocation(trajectory traj: [CLLocation], labels: [trans_modeOutput]) throws -> CLLocation? {
+    private func determineParkingPosCandidate(trajectory traj: [CLLocation], labels: [trans_modeOutput]) throws -> CLLocation? {
         var counter = 0
         
         for i in (0 ..< labels.count).reversed() {
@@ -241,7 +241,7 @@ class ParkingPositionDetermination {
                     let timeDelta = p_j.timestamp.timeIntervalSince(p_i.timestamp)
                     if timeDelta > timeThresh {
                         
-                        let meanLoc = computeAverageCoordinate(coords: Array(locations[i...j]))
+                        let meanLoc = computeMeanCoordinate(coords: Array(locations[i...j]))
                         
                         stayPoints.append(
                             StayPoint(lat: meanLoc.latitude, lon: meanLoc.longitude,
@@ -311,7 +311,7 @@ class ParkingPositionDetermination {
         }
         
         for i in (2 ..< coords.count - 2) {
-            let meanCoord = computeAverageCoordinate(coords: Array(coords[i-2 ... i+2]))
+            let meanCoord = computeMeanCoordinate(coords: Array(coords[i-2 ... i+2]))
             
             cleaned.append(CLLocation(coordinate: meanCoord, altitude: coords[i].altitude, horizontalAccuracy: coords[i].horizontalAccuracy, verticalAccuracy: coords[i].verticalAccuracy, timestamp: coords[i].timestamp))
         }
@@ -322,7 +322,7 @@ class ParkingPositionDetermination {
     
     // MARK: Helper Methods
     
-    private func computeAverageCoordinate(coords: [CLLocation]) -> CLLocationCoordinate2D{
+    private func computeMeanCoordinate(coords: [CLLocation]) -> CLLocationCoordinate2D{
         var lat: Double = 0
         var lon: Double = 0
         
@@ -337,7 +337,7 @@ class ParkingPositionDetermination {
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
-    private func computeMeanCoordinate(coords: [CLLocation]) -> CLLocationCoordinate2D{
+    private func computeMedianCoordinate(coords: [CLLocation]) -> CLLocationCoordinate2D{
         var latArr: [Double] = Array()
         var lonArr: [Double] = Array()
         
@@ -346,8 +346,8 @@ class ParkingPositionDetermination {
             lonArr += [c.coordinate.longitude]
         }
         
-        latArr.sorted()
-        lonArr.sorted()
+        latArr = latArr.sorted()
+        lonArr = lonArr.sorted()
         
         let lat = latArr[latArr.count/2+1]
         let lon = lonArr[lonArr.count/2+1]
