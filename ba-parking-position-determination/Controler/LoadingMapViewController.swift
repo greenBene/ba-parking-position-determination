@@ -16,8 +16,6 @@ class LoadingMapViewController: UIViewController, MKMapViewDelegate{
     
     @IBOutlet weak var informationView: UIView!
     
-    
-    let regionRadius: CLLocationDistance = 1000
     let locationManager = CLLocationManager()
     let realm = try! Realm()
     

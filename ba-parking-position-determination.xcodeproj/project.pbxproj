@@ -100,7 +100,6 @@
 				CCB74948232F905C0084D884 /* Controler */,
 				CCB74947232F90570084D884 /* View */,
 				CCB74946232F904B0084D884 /* Model */,
-				CCF59A63232FDB7E00DA1850 /* Parking Position Detection */,
 				CCB74949232F90820084D884 /* Supporting Files */,
 				CC92867A232BEBFC000478AF /* Info.plist */,
 			);
@@ -111,9 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				CCB7494A232F90A80084D884 /* Location.swift */,
-				CC366DF8233A04BC001AD256 /* CarAnnotation.swift */,
-				CC366DFA233A0677001AD256 /* CarAnnotationView.swift */,
 				CC2FE4A523434D6A00972B69 /* StayPoint.swift */,
+				CCF59A64232FDBD300DA1850 /* ParkingPositionDetermination.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -122,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				CC928672232BEBFB000478AF /* Main.storyboard */,
+				CC366DFA233A0677001AD256 /* CarAnnotationView.swift */,
+				CC366DF8233A04BC001AD256 /* CarAnnotation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -145,14 +145,6 @@
 				CC928677232BEBFC000478AF /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		CCF59A63232FDB7E00DA1850 /* Parking Position Detection */ = {
-			isa = PBXGroup;
-			children = (
-				CCF59A64232FDBD300DA1850 /* ParkingPositionDetermination.swift */,
-			);
-			path = "Parking Position Detection";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
