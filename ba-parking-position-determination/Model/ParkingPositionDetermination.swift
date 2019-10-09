@@ -64,14 +64,21 @@ class ParkingPositionDetermination {
         
         let classifier = trans_mode()
         
-        for trip in trips.reversed() {
+        for trip in trips {
             let features = try featureExtraction(locations: trip)
             
             let output = try classifier.predictions(inputs: features)
             
-            if let loc =  try determineParkingPosCandidate(trajectory: trip, labels: output) {
+            do {
+                guard let loc = try determineParkingPosCandidate(trajectory: trip, labels: output) else {
+                    continue
+                }
                 return (loc, stayPoints)
+                
+            } catch {
+            
             }
+            
             
         }
         
